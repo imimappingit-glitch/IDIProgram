@@ -20,62 +20,59 @@
     </p>
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProgramStep.StepTitle)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.ActivityName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DoneBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActivityDate)
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div style="overflow-x:auto;">
+    <table class="table table-striped table-bordered">
         <tr>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.ProgramStep.StepTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActivityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DoneBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActivityDate)
-            </td>
-
-            <td>
-                @if (role == "Admin")
-                {
-                    @Html.ActionLink(" ", "Edit", new { id = item.ActivityId },
-                        new { @class = "fa fa-edit edit", title = "Edit" })
-
-                    @Html.ActionLink(" ", "Details", new { id = item.ActivityId },
-                        new { @class = "fa fa-eye view", title = "Details" })
-
-                    @Html.ActionLink(" ", "Delete", new { id = item.ActivityId },
-                        new
-                        {
-                            @class = "fa fa-trash delete",
-                            title = "Delete",
-                            onclick = "return confirm('Are you sure?')"
-                        })
-                }
-            </td>
-
+            <th>Step</th>
+            <th>Activity Name</th>
+            <th>Done By</th>
+            <th>Date</th>
+            <th>Target</th>
+            <th>Benefit</th>
+            <th>Duration</th>
+            <th>Pricing</th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProgramStep.StepTitle</td>
+                <td>@item.ActivityName</td>
+                <td>@item.DoneBy</td>
+                <td>@item.ActivityDate.ToString("yyyy-MM-dd")</td>
+
+                <td style="max-width:200px; white-space:normal;">
+                    @item.Target
+                </td>
+
+                <td style="max-width:200px; white-space:normal;">
+                    @item.Benefit
+                </td>
+
+                <td>@(item.Duration != null ? item.Duration + " mins" : "")</td>
+
+                <td>@(item.Pricing != null ? "₹ " + item.Pricing : "")</td>
+
+                <td>
+                    @if (role == "Admin")
+                    {
+                        @Html.ActionLink(" ", "Edit", new { id = item.ActivityId },
+                            new { @class = "fa fa-edit edit", title = "Edit" })
+
+                        @Html.ActionLink(" ", "Details", new { id = item.ActivityId },
+                            new { @class = "fa fa-eye view", title = "Details" })
+
+                        @Html.ActionLink(" ", "Delete", new { id = item.ActivityId },
+                            new
+                            {
+                                @class = "fa fa-trash delete",
+                                title = "Delete",
+                                onclick = "return confirm('Are you sure?')"
+                            })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

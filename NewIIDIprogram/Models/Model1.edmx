@@ -20,6 +20,10 @@
           <Property Name="StartTime" Type="time" Precision="7" />
           <Property Name="CompleteTime" Type="time" Precision="7" />
           <Property Name="AuxiName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Target" Type="nvarchar" MaxLength="500" />
+          <Property Name="Benefit" Type="nvarchar" MaxLength="500" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Pricing" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="BiomatricFingerprintMapping">
           <Key>
@@ -365,6 +369,10 @@
           <Property Name="StartTime" Type="Time" Precision="7" />
           <Property Name="CompleteTime" Type="Time" Precision="7" />
           <Property Name="AuxiName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Target" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Benefit" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Pricing" Type="Decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityContainer Name="imiMappingDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Activities" EntityType="Self.Activity" />
@@ -712,6 +720,10 @@
           <EntitySetMapping Name="Activities">
             <EntityTypeMapping TypeName="imiMappingDbModel.Activity">
               <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="Pricing" ColumnName="Pricing" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Benefit" ColumnName="Benefit" />
+                <ScalarProperty Name="Target" ColumnName="Target" />
                 <ScalarProperty Name="AuxiName" ColumnName="AuxiName" />
                 <ScalarProperty Name="CompleteTime" ColumnName="CompleteTime" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />

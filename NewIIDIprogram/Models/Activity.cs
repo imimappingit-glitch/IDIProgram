@@ -25,6 +25,10 @@ namespace NewIIDIprogram.Models
         public Nullable<System.TimeSpan> StartTime { get; set; }
         public Nullable<System.TimeSpan> CompleteTime { get; set; }
         public string AuxiName { get; set; }
+        public string Target { get; set; }
+        public string Benefit { get; set; }
+        public Nullable<int> Duration { get; set; }
+        public Nullable<decimal> Pricing { get; set; }
     
         public virtual ProgramStep ProgramStep { get; set; }
     }

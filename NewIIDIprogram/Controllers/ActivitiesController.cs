@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using NewIIDIprogram.Models;
 
@@ -19,11 +16,10 @@ namespace NewIIDIprogram.Controllers
         {
             var activities = db.Activities.Include(a => a.ProgramStep);
 
-            // Filter by StepId if passed from ProgramStep Index
             if (stepId.HasValue)
             {
                 activities = activities.Where(a => a.StepId == stepId.Value);
-                ViewBag.CurrentStepId = stepId.Value; // optional, for display in View
+                ViewBag.CurrentStepId = stepId.Value;
             }
 
             return View(activities.ToList());
@@ -33,14 +29,15 @@ namespace NewIIDIprogram.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Activity activity = db.Activities.Find(id);
+
+            Activity activity = db.Activities
+                .Include(a => a.ProgramStep)
+                .FirstOrDefault(a => a.ActivityId == id);
+
             if (activity == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(activity);
         }
 
@@ -52,11 +49,7 @@ namespace NewIIDIprogram.Controllers
 
             var step = db.ProgramSteps
                 .Where(s => s.StepId == stepId.Value)
-                .Select(s => new
-                {
-                    s.StepId,
-                    s.StepTitle
-                })
+                .Select(s => new { s.StepId, s.StepTitle })
                 .FirstOrDefault();
 
             if (step == null)
@@ -71,23 +64,18 @@ namespace NewIIDIprogram.Controllers
             });
         }
 
-
         // POST: Activities/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ActivityId,StepId,ActivityName,DoneBy,ActivityDate")] Activity activity)
+        public ActionResult Create([Bind(Include = "ActivityId,StepId,ActivityName,DoneBy,ActivityDate,Target,Benefit,Duration,Pricing")] Activity activity)
         {
             if (ModelState.IsValid)
             {
                 db.Activities.Add(activity);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { stepId = activity.StepId });
-
             }
 
-            ViewBag.StepId = new SelectList(db.ProgramSteps, "StepId", "StepTitle", activity.StepId);
             return View(activity);
         }
 
@@ -95,32 +83,29 @@ namespace NewIIDIprogram.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Activity activity = db.Activities.Find(id);
+
             if (activity == null)
-            {
                 return HttpNotFound();
-            }
+
             ViewBag.StepId = new SelectList(db.ProgramSteps, "StepId", "StepTitle", activity.StepId);
             return View(activity);
         }
 
-        // POST: Activities/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Activities/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ActivityId,StepId,ActivityName,DoneBy,ActivityDate")] Activity activity)
+        public ActionResult Edit([Bind(Include = "ActivityId,StepId,ActivityName,DoneBy,ActivityDate,Target,Benefit,Duration,Pricing")] Activity activity)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(activity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", new { stepId = activity.StepId });
-
             }
+
             ViewBag.StepId = new SelectList(db.ProgramSteps, "StepId", "StepTitle", activity.StepId);
             return View(activity);
         }
@@ -129,14 +114,13 @@ namespace NewIIDIprogram.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Activity activity = db.Activities.Find(id);
+
             if (activity == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(activity);
         }
 
@@ -148,16 +132,15 @@ namespace NewIIDIprogram.Controllers
             Activity activity = db.Activities.Find(id);
             db.Activities.Remove(activity);
             db.SaveChanges();
-            return RedirectToAction("Index", new { stepId = activity.StepId });
 
+            return RedirectToAction("Index", new { stepId = activity.StepId });
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
+
             base.Dispose(disposing);
         }
     }

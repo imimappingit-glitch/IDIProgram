@@ -12,16 +12,15 @@
     <dl class="dl-horizontal">
 
         <dt>
-            @Html.DisplayNameFor(model => model.StepId)
+            Step
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.StepId)
+            @Html.DisplayFor(model => model.ProgramStep.StepTitle)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.ActivityName)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.ActivityName)
         </dd>
@@ -29,7 +28,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.DoneBy)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.DoneBy)
         </dd>
@@ -37,22 +35,38 @@
         <dt>
             @Html.DisplayNameFor(model => model.ActivityDate)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.ActivityDate)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProgramStep.StepTitle)
-        </dt>
+        <!-- NEW FIELDS -->
 
+        <dt>Target</dt>
+        <dd>@Html.DisplayFor(model => model.Target)</dd>
+
+        <dt>Benefit</dt>
+        <dd>@Html.DisplayFor(model => model.Benefit)</dd>
+
+        <dt>Duration</dt>
         <dd>
-            @Html.DisplayFor(model => model.ProgramStep.StepTitle)
+            @if (Model.Duration != null)
+            {
+                @Model.Duration <text> mins</text>
+            }
+        </dd>
+
+        <dt>Pricing</dt>
+        <dd>
+            @if (Model.Pricing != null)
+            {
+                <text>₹ @Model.Pricing</text>
+            }
         </dd>
 
     </dl>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ActivityId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { stepId = Model.StepId })
 </p>
