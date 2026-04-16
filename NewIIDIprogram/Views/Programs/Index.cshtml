@@ -1,0 +1,97 @@
+﻿@model IEnumerable<NewIIDIprogram.Models.Program>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+<h2>Program</h2>
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProgramName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+            <td class="action-icons">
+
+
+
+
+                @Html.ActionLink(" ", "Edit",
+                    new { id = item.ProgramId },
+                    new { @class = "fa fa-edit edit", title = "Edit" })
+
+                @Html.ActionLink(" ", "Details",
+                    new { id = item.ProgramId },
+                    new { @class = "fa fa-eye view", title = "Details" })
+
+                @Html.ActionLink(" ", "Delete",
+                    new { id = item.ProgramId },
+                    new
+                    {
+                        @class = "fa fa-trash delete",
+                        title = "Delete",
+                        onclick = "return confirm('Are you sure?')"
+                    })
+
+
+
+                <!-- Program Steps -->
+                <a href="@Url.Action("Index", "ProgramSteps",
+            new { programId = item.ProgramId })"
+                   class="btn btn-sm btn-info me-1">
+                   Add Steps
+                </a>
+
+                <!-- Program Status -->
+                <a href="@Url.Action("Index", "ProgramStatus",
+            new { programId = item.ProgramId })"
+                   class="btn btn-sm btn-success me-1">
+                    Status
+                </a>
+
+                <!-- Program Step Dashboard -->
+                <a href="@Url.Action("Dashboard", "ProgramSteps",
+            new { programId = item.ProgramId })"
+                   class="btn btn-sm btn-warning">
+                    Dashboard
+                </a>
+               
+
+                <a href="@Url.Action("ClientsInProgram", "Programs", new { programId = item.ProgramId })"
+                   class="btn btn-info btn-sm ms-1">
+                    Clients
+                </a>
+
+
+
+
+            </td>
+        </tr>
+    }
+
+</table>

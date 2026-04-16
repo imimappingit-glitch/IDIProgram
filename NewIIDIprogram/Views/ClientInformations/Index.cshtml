@@ -1,0 +1,261 @@
+﻿@model PagedList.IPagedList<NewIIDIprogram.Models.ClientInformation>
+
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="row column_title">
+    <div class="col-md-12">
+        <div class="page_title">
+            <h2>Client Profile</h2>
+        </div>
+    </div>
+</div>
+
+
+@*<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = " btn btn-primary pull-right" })
+</p>*@
+<br />
+<br />
+<form method="get" action="@Url.Action("Index")">
+    <div class="form-group row">
+        <label for="Biomatric" class="col-form-label col-sm-2">Biomatric ID</label>
+        <div class="col-sm-2">
+            <input type="text" name="Biomatric" class="form-control form-control-sm" style="text-transform:uppercase;" value="@ViewBag.Biomatric" />
+        </div>
+        <label for="FirstName" class="col-form-label col-sm-2">First Name</label>
+        <div class="col-sm-2">
+            <input type="text" name="FirstName" class="form-control form-control-sm" style="text-transform:uppercase;" value="@ViewBag.FirstName" />
+        </div>
+
+        <label for="LastName" class="col-form-label col-sm-2">Last Name</label>
+        <div class="col-sm-2">
+            <input type="text" name="LastName" class="form-control form-control-sm" style="text-transform:uppercase;" value="@ViewBag.LastName" />
+        </div>
+
+        <div class="col-sm-2">
+            <input type="submit" value="Search" class="btn btn-success" />
+        </div>
+    </div>
+</form>
+<table class="table">
+    <tr>
+        <th>
+            Biomatric
+        </th>
+        <th>
+
+            First Name
+        </th>
+        <th>
+
+            Last Name
+        </th>
+        <th>
+            Parents Name
+        </th>
+        @*<th>
+                Credits
+            </th>
+            <th>
+
+                DOB
+            </th>
+            <th>
+
+                Handedness
+            </th>
+            <th>
+
+                Country
+            </th>*@
+        <th>
+
+            Mobile No
+        </th>
+        @*<th>
+
+                Email
+            </th>*@
+        @*<th>
+
+                Referances
+            </th>
+            <th>
+
+                Adress
+            </th>
+            <th>
+
+                Languages
+            </th>
+            <th>
+
+                Date
+            </th>*@
+        <th>
+
+            Client Photo
+        </th>
+
+        @*<th>
+
+
+                Fingerprint Image
+            </th>
+            <th>
+
+                BloodGroup
+            </th>
+            <th>
+
+                City
+            </th>
+            <th>
+
+                EvalutionType
+            </th>
+            <th>
+
+                Gender
+            </th>
+            <th>
+
+                State
+            </th>
+            <th>
+
+                PinCode
+            </th>*@
+        @*<th></th>*@
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Biomatric)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FristName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentsName)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Credits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Handedness)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ethnicity)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.MobileNo)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Referances)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Languages)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>*@
+            <td>
+                @if (item.ClientPhoto != null)
+                {
+                    if (item.ClientPhoto.StartsWith("/uploads"))
+                    {
+                        <img style="width:100px" src="@Url.Content("~")@item.ClientPhoto.Substring(1)" alt="Client Photo" class="img-fluid" />
+                    }
+                    else
+                    {
+                        <img style="width:100px" src="@Url.Content("~/clientPhoto/")@item.ClientPhoto" alt="Client Photo" class="img-fluid" />
+                    }
+                }
+                else
+                {
+                    <div>
+                        <i class="fa fa-user fa-3x yellow_color"></i>
+                    </div>
+                    <!-- Replace "~/images/default-image.jpg" with the path to your default image -->
+                }
+
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.BiomatricFingerprintMapping.FingerprintImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BloodGroupMaster.BloodGroup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CityMaster.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EvaluationTypeMaster.EvalutionType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GenderMaster.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateMaster.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZipCodeMapping.ZipCode)
+                </td>*@
+        <td>
+            @*@Html.ActionLink(" ", "Edit", new { id = item.ClientId }, new { @class = "fa fa-edit fa-lg mr-1", title = "Edit" })*@
+
+            @Html.ActionLink(" ", "Details", new { id = item.ClientId }, new { @class = "fa fa-eye fa-lg mr-1", title = "Details" })
+            <a href="@Url.Action("AddProgram", "Programs", new { clientId = item.ClientId })"
+               class="btn btn-sm btn-primary ml-1" title="Add Program">
+                <i class="fa fa-plus"></i> Add Program
+            </a>
+
+
+
+            @*@Html.ActionLink(" ", "Delete", new { id = item.ClientId }, new { @class = "fa fa-trash fa-lg mr-1", title = "Delete" })
+        @Html.ActionLink(" ", "Create", "testinfoes", new { id = item.Biomatric }, new { @class = "fa fa-file fa-lg mr-1", title = "Add Report" })*@
+
+            @*@Html.ActionLink(" ", "Edit", "testinfoes", new { id = item.Biomatric }, new { @class = "fa fa-pencil fa-lg mr-1", title = "Edit Report" })*@
+            @*    @Html.ActionLink(" ", "GenerateIMIBMReport", "Report", new { id = item.Biomatric }, new { @class = "fa fa-pencil fa-lg mr-1", title = "Generate Report" })*@
+
+        </td>
+        </tr>
+    }
+
+</table>
+@*@Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new[] { "btn" },
+        UlElementClasses = new[] { "pagination", "btn-group mr-2" },
+        // You can add more options or customize as needed
+    })*@
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, FirstName = ViewBag.FirstName, LastName = ViewBag.LastName }),
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new[] { "btn" },
+        UlElementClasses = new[] { "pagination", "btn-group mr-2" },
+    })
+
+

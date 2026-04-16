@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a399fa58b72d46ccafe60ae932e7ad3e" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="imiMappingDbModel.Activity" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="imiMappingDbModel.GetInTouch" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="imiMappingDbModel.LoginUser" Width="1.5" PointX="6" PointY="9.375" />
+        <EntityTypeShape EntityType="imiMappingDbModel.MasterStep" Width="1.5" PointX="3.75" PointY="8.625" />
+        <EntityTypeShape EntityType="imiMappingDbModel.NavigatorItem" Width="1.5" PointX="8.875" PointY="9.25" />
+        <EntityTypeShape EntityType="imiMappingDbModel.ProgramFeature" Width="1.5" PointX="9.875" PointY="5.25" />
+        <EntityTypeShape EntityType="imiMappingDbModel.Program" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="imiMappingDbModel.ProgramStatu" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="imiMappingDbModel.ProgramStepProgress" Width="1.5" PointX="10.875" PointY="8.25" />
+        <EntityTypeShape EntityType="imiMappingDbModel.ProgramStep" Width="1.5" PointX="3" PointY="5" />
+        <AssociationConnector Association="imiMappingDbModel.FK_Activity_ProgramSteps" />
+        <AssociationConnector Association="imiMappingDbModel.FK_Programs_LoginUsers" />
+        <AssociationConnector Association="imiMappingDbModel.FK_ProgramSteps_MasterSteps" />
+        <AssociationConnector Association="imiMappingDbModel.FK_ProgramStatus_Program" />
+        <AssociationConnector Association="imiMappingDbModel.FK_ProgramSteps_Programs" />
+        <AssociationConnector Association="imiMappingDbModel.FK_ProgramStatus_Step" />
+        <EntityTypeShape EntityType="imiMappingDbModel.ClientInformation" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="imiMappingDbModel.BiomatricFingerprintMapping" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="imiMappingDbModel.ClientProgramMapping" Width="2" PointX="7.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="imiMappingDbModel.MasterRole" Width="1.5" PointX="3.75" PointY="11" />
+        <AssociationConnector Association="imiMappingDbModel.FK_LoginUsers_MasterRoles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,1075 @@
+﻿@model NewIIDIprogram.Models.ClientInformation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+ 
+
+<h2>Details</h2>
+
+<script>
+function editRecord() {
+    const id = $("#biomatricLogId").val();
+    const hand = $("#Hand").val();
+    const fingerType = $("#FingerType").val();
+
+    const lrc = $("#lrc").val();
+    const rrc = $("#rrc").val();
+
+    // ✅ get selected finger type from dropdown
+    const ftype = $("#FingerTypeL1").val();
+
+    $.ajax({
+        url: '@Url.Action("UpdateFingerprint", "ClientInformations")',
+        type: 'POST',
+        data: {
+            biomatricLogId: id,
+            hand: hand,
+            fingerType: fingerType,
+            lrc: lrc,
+            rrc: rrc,
+            ftype: ftype
+        },
+        success: function (res) {
+            if (res.success) {
+                alert("Fingerprint updated successfully");
+                closeModal();
+            } else {
+                alert("Update failed: " + (res.message || "Unknown error"));
+            }
+        },
+        error: function () {
+            alert("Error while updating fingerprint");
+        }
+    });
+}
+
+
+
+</script>
+<div>
+    <h4>ClientInformation</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>Biomatric</h5>
+            @Html.EditorFor(model => model.Biomatric, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Biomatric, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>Registerd By</h5>
+            @Html.EditorFor(model => model.RegisterdBy, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.RegisterdBy, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5> Client Photo</h5>
+            @if (Model.ClientPhoto != null)
+            {
+
+                if (Model.ClientPhoto.StartsWith("/uploads"))
+                {
+                    <img style="width:100; margin:5px 0" src="@Url.Content("~")@Model.ClientPhoto.Substring(1)" alt="Client Photo" class="img-fluid" />
+                }
+                else
+                {
+                    <img style="width:100px" src="@Url.Content("~/clientPhoto/")@Model.ClientPhoto" alt="Client Photo" class="img-fluid" />
+                }
+
+            }
+            else
+            {
+                <div>
+                    <i class="fa fa-user fa-3x yellow_color"></i>
+                </div> <!-- Replace "~/images/default-image.jpg" with the path to your default image -->}
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>  First Name</h5>
+            @Html.EditorFor(model => model.FristName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.FristName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>Last Name</h5>
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5> Parents Name</h5>
+            @Html.EditorFor(model => model.ParentsName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.ParentsName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>DATE OF BIRTH</h5>
+            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>Gender</h5>
+            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>BloodGroup</h5>
+            @Html.EditorFor(model => model.BloodGroup, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5> Mobile No</h5>
+            @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>Email</h5>
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>Languages</h5>
+            @Html.EditorFor(model => model.Languages, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Languages, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>Address</h5>
+            @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>City</h5>
+            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>State</h5>
+            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>ZipCode</h5>
+            @Html.EditorFor(model => model.Zipcode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
+        </div>
+        @*<div class="col-md-4 col-sm-12 col-lg-4">
+                <h5>Pin Code</h5>
+
+                @Html.EditorFor(model => model.PinCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "text-danger" })
+            </div>*@
+
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>Country</h5>
+            @Html.EditorFor(model => model.Ethnicity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Ethnicity, "", new { @class = "text-danger" })
+        </div>
+
+
+        @*<div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>EvalutionType</h5>
+            @Html.EditorFor(model => model.EvaluationTypeMaster.EvalutionType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.EvaluationTypeMaster.EvalutionType, "", new { @class = "text-danger" })
+        </div>*@
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>Handedness</h5>
+            @Html.EditorFor(model => model.Handedness, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Handedness, "", new { @class = "text-danger" })
+        </div>
+
+
+        @*<div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>EvalutionType1</h5>
+            @Html.EditorFor(model => model.EvaluationTypeMaster.EvalutionType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.EvaluationTypeMaster.EvalutionType, "", new { @class = "text-danger" })
+        </div>*@
+
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <h5>Date</h5>
+            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+
+
+    Fingerprint Image
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <style>
+            /* Modal (background) */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow-y: auto; /* allow scroll */
+                background-color: rgba(0, 0, 0, 0.8);
+                padding: 40px 0; /* spacing */
+            }
+
+            /* Modal Content */
+            .modal-content {
+                position: relative;
+                background-color: #f2f2f2;
+                margin: auto;
+                padding: 15px;
+                width: 90%;
+                max-width: 600px;
+                border-radius: 6px;
+                text-align: center;
+            }
+
+                /* Image inside modal */
+                .modal-content img {
+                    max-width: 100%; /* scale width */
+                    height: auto; /* no height restriction */
+                    margin-bottom: 12px;
+                    border: 2px solid #000;
+                }
+
+            /* Rotate image upright */
+            #modalImage {
+                transform: rotate(180deg);
+            }
+
+            .fields {
+                background: #fff;
+                padding: 12px;
+                border-radius: 6px;
+                text-align: left; /* labels + inputs aligned left */
+                max-width: 600px;
+                width: 100%;
+                margin: 0 auto; /* centers the block horizontally */
+                position: relative;
+            }
+
+            .field {
+                margin: 10px 0;
+            }
+
+                .field label {
+                    display: block;
+                    font-size: 14px;
+                    font-weight: bold;
+                    margin-bottom: 4px;
+                }
+
+                .field input {
+                    width: 20%;
+                    padding: 6px;
+                    font-size: 14px;
+                }
+
+            /* Button */
+            button {
+                margin-top: 10px;
+                padding: 8px 16px;
+                background: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+                button:hover {
+                    background: #0056b3;
+                }
+
+            /* Close Button */
+            .close {
+                color: #fff;
+                position: fixed; /* stays visible while scrolling */
+                top: 20px;
+                right: 35px;
+                font-size: 40px;
+                font-weight: bold;
+                cursor: pointer;
+                z-index: 1100;
+                transition: color 0.3s, transform 0.3s;
+            }
+
+                .close:hover {
+                    color: #ccc;
+                    transform: scale(1.1);
+                }
+        </style>
+
+
+
+    </head>
+    <body>
+
+        <br><br>
+        <div class="container" style="border: 1px solid black;">
+            <div class="row">
+                <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                    <h3>Fingers</h3>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                    <h3>Left Hand</h3>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                    <h3>Right Hand</h3>
+                </div>
+            </div>
+
+            @using System.Collections.Generic
+            @functions {
+                // Safe method to get position name with full null checking
+                public string GetPositionName(int? position)
+                {
+                    try
+                    {
+                        if (!position.HasValue) return "Position";
+
+                        switch (position.Value)
+                        {
+                            case 1: return "Center";
+                            case 2: return "Left";
+                            case 3: return "Right";
+                            default: return "Position";
+                        }
+                    }
+                    catch
+                    {
+                        return "Position";
+                    }
+                }
+            }
+
+            @{
+                // Safely get the fingerprint list or empty list if null
+                var fingerprints = Model.Fingureprits ?? new List<NewIIDIprogram.Models.BiomatricFingerprintMapping>();
+
+
+                ;
+            }
+
+            @* THUMB Section *@
+            <div class="row" style=" margin: 20px 0 0px 0;">
+                <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                    <br><br>
+                    <h3>THUMB</h3>
+                </div>
+
+                @* Left Hand (Hand == 1) *@
+                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                    <div class="row">
+                        @foreach (var item in fingerprints)
+                        {
+                            if (item?.Hand == 2 && item?.FingerType == 1)
+                            {
+                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                    <h4>@GetPositionName(item?.PositionOfFingerprint)</h4>
+                                    <div class="column">
+                                        <img src="@Url.Content(item?.FingerprintImagePath ?? "~/clientPhoto/fingureplaceholder.jpg")"
+                                             style="width:100px;height:100px;border:2px solid black;transform: rotate(180deg);"
+                                             onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')"
+                                             class="hover-shadow cursor">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                @* Right Hand (Hand == 2) *@
+                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                    <div class="row">
+                        @foreach (var item in fingerprints)
+                        {
+                            if (item?.Hand == 1 && item?.FingerType == 1)
+                            {
+                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                    <h4>@GetPositionName(item?.PositionOfFingerprint)</h4>
+                                    <div class="column">
+                                        <img src="@Url.Content(item?.FingerprintImagePath ?? "~/clientPhoto/fingureplaceholder.jpg")"
+                                             style="width:100px;height:100px;border:2px solid black;transform: rotate(180deg);"
+                                             onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')"
+                                             class="hover-shadow cursor">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @* INDEX Section *@
+            <div class="row" style=" margin: 20px 0 0px 0;">
+                <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                    <br><br>
+                    <h3>INDEX</h3>
+                </div>
+
+                @* Left Hand *@
+                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                    <div class="row">
+                        @foreach (var item in fingerprints)
+                        {
+                            if (item?.Hand == 2 && item?.FingerType == 2)
+                            {
+                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                    <h4>@GetPositionName(item?.PositionOfFingerprint)</h4>
+                                    <div class="column">
+                                        <img src="@Url.Content(item?.FingerprintImagePath ?? "~/clientPhoto/fingureplaceholder.jpg")"
+                                             style="width:100px;height:100px;border:2px solid black;transform: rotate(180deg);"
+                                             onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')"
+                                             class="hover-shadow cursor">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                @* Right Hand *@
+                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                    <div class="row">
+                        @foreach (var item in fingerprints)
+                        {
+                            if (item?.Hand == 1 && item?.FingerType == 2)
+                            {
+                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                    <h4>@GetPositionName(item?.PositionOfFingerprint)</h4>
+                                    <div class="column">
+                                        <img src="@Url.Content(item?.FingerprintImagePath ?? "~/clientPhoto/fingureplaceholder.jpg")"
+                                             style="width:100px;height:100px;border:2px solid black;transform: rotate(180deg);"
+                                             onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')"
+                                             class="hover-shadow cursor">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+
+            @* MIDDLE Section *@
+            <div class="row" style=" margin: 20px 0 0px 0;">
+                <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                    <br><br>
+                    <h3>MIDDLE</h3>
+                </div>
+
+                @* Left Hand *@
+                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                    <div class="row">
+                        @foreach (var item in fingerprints)
+                        {
+                            if (item?.Hand == 2 && item?.FingerType == 3)
+                            {
+                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                    <h4>@GetPositionName(item?.PositionOfFingerprint)</h4>
+                                    <div class="column">
+                                        <img src="@Url.Content(item?.FingerprintImagePath ?? "~/clientPhoto/fingureplaceholder.jpg")"
+                                             style="width:100px;height:100px;border:2px solid black;transform: rotate(180deg);"
+                                             onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')"
+                                             class="hover-shadow cursor">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                @* Right Hand *@
+                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                    <div class="row">
+                        @foreach (var item in fingerprints)
+                        {
+                            if (item?.Hand == 1 && item?.FingerType == 3)
+                            {
+                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                    <h4>@GetPositionName(item?.PositionOfFingerprint)</h4>
+                                    <div class="column">
+                                        <img src="@Url.Content(item?.FingerprintImagePath ?? "~/clientPhoto/fingureplaceholder.jpg")"
+                                             style="width:100px;height:100px;border:2px solid black;transform: rotate(180deg);"
+                                             onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')"
+                                             class="hover-shadow cursor">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+            @* RING Section *@
+            <div class="row" style=" margin: 20px 0 0px 0;">
+                <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                    <br><br>
+                    <h3>RING</h3>
+                </div>
+
+                @* Left Hand *@
+                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                    <div class="row">
+                        @foreach (var item in fingerprints)
+                        {
+                            if (item?.Hand == 2 && item?.FingerType == 4)
+                            {
+                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                    <h4>@GetPositionName(item?.PositionOfFingerprint)</h4>
+                                    <div class="column">
+                                        <img src="@Url.Content(item?.FingerprintImagePath ?? "~/clientPhoto/fingureplaceholder.jpg")"
+                                             style="width:100px;height:100px;border:2px solid black;transform: rotate(180deg);"
+                                             onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')"
+                                             class="hover-shadow cursor">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                @* Right Hand *@
+                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                    <div class="row">
+                        @foreach (var item in fingerprints)
+                        {
+                            if (item?.Hand == 1 && item?.FingerType == 4)
+                            {
+                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                    <h4>@GetPositionName(item?.PositionOfFingerprint)</h4>
+                                    <div class="column">
+                                        <img src="@Url.Content(item?.FingerprintImagePath ?? "~/clientPhoto/fingureplaceholder.jpg")"
+                                             style="width:100px;height:100px;border:2px solid black;transform: rotate(180deg);"
+                                             onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')"
+                                             class="hover-shadow cursor">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+            @* LITTLE Section *@
+            <div class="row" style=" margin: 20px 0 0px 0;">
+                <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                    <br><br>
+                    <h3>LITTLE</h3>
+                </div>
+
+                @* Left Hand *@
+                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                    <div class="row">
+                        @foreach (var item in fingerprints)
+                        {
+                            if (item?.Hand == 2 && item?.FingerType == 5)
+                            {
+                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                    <h4>@GetPositionName(item?.PositionOfFingerprint)</h4>
+                                    <div class="column">
+                                        <img src="@Url.Content(item?.FingerprintImagePath ?? "~/clientPhoto/fingureplaceholder.jpg")"
+                                             style="width:100px;height:100px;border:2px solid black;transform: rotate(180deg);"
+                                             onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')"
+                                             class="hover-shadow cursor">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                @* Right Hand *@
+                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                    <div class="row">
+                        @foreach (var item in fingerprints)
+                        {
+                            if (item?.Hand == 1 && item?.FingerType == 5)
+                            {
+                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                    <h4>@GetPositionName(item?.PositionOfFingerprint)</h4>
+                                    <div class="column">
+                                        <img src="@Url.Content(item?.FingerprintImagePath ?? "~/clientPhoto/fingureplaceholder.jpg")"
+                                             style="width:100px;height:100px;border:2px solid black;transform: rotate(180deg);"
+                                             onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')"
+                                             class="hover-shadow cursor">
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            @* Repeat similar pattern for MIDDLE (FingerType == 3), RING (4), and LITTLE (5) *@
+
+
+            @*<div class="row">
+                                <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                                    <br><br>
+                                    <h3>THUMB</h3>
+                                </div>
+                                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        @foreach (var item in Model.listFingureprit)
+                                        {
+                                            string imageUrl = Url.Content(item.FingerprintImagePath ?? "~/images/placeholder.png"); // Fallback image
+
+                                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                @if (item.Hand == 1 && item.FingerType == 1 && item.PositionOfFingerprint == 1)
+                                                {
+                                                    <h4>Center</h4>
+                                                    <div class="column">
+                                                        <img src="@imageUrl" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                                                    </div>
+                                                }
+                                                else if (item.Hand == 1 && item.FingerType == 1 && item.PositionOfFingerprint == 2)
+                                                {
+                                                    <h4>Left</h4>
+                                                    <div class="column">
+                                                        <img src="@imageUrl" style="width:100px;height: 100px;border: 2px solid black" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                                                    </div>
+                                                }
+                                                else if (item.Hand == 1 && item.FingerType == 1 && item.PositionOfFingerprint == 3)
+                                                {
+                                                    <h4>Right</h4>
+                                                    <div class="column">
+                                                        <img src="@imageUrl" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                                    <div class="row">
+                                        @foreach (var item in Model.listFingureprit)
+                                        {
+                                            string base64Image = Convert.ToBase64String(item.FingerprintImage);
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                @if (item.Hand == 2 && item.FingerType == 1 && item.PositionOfFingerprint == 1)
+                                {
+                <h4>Center</h4>
+                                    <div class="column">
+                                        <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                                    </div> }
+
+                                else if (item.Hand == 2 && item.FingerType == 1 && item.PositionOfFingerprint == 2)
+                                {
+                <h4>Left</h4>
+                                    <div class="column">
+                                        <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                                    </div> }
+
+                                else if (item.Hand == 2 && item.FingerType == 1 && item.PositionOfFingerprint == 3)
+                                {
+                <h4>Right</h4>
+                                    <div class="column">
+                                        <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                                    </div>}
+                            </div>}
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                                    <br><br>
+                                    <h3>INDEX</h3>
+                                </div>
+                                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        @foreach (var item in Model.listFingureprit)
+                                        {
+                                            string base64Image = Convert.ToBase64String(item.FingerprintImage);
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                @if (item.Hand == 1 && item.FingerType == 2 && item.PositionOfFingerprint == 1)
+                                {
+
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 1 && item.FingerType == 2 && item.PositionOfFingerprint == 2)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 1 && item.FingerType == 2 && item.PositionOfFingerprint == 3)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div>}
+                            </div>}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                                    <div class="row">
+                                        @foreach (var item in Model.listFingureprit)
+                                        {
+                                            string base64Image = Convert.ToBase64String(item.FingerprintImage);
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                @if (item.Hand == 2 && item.FingerType == 2 && item.PositionOfFingerprint == 1)
+                                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 2 && item.FingerType == 2 && item.PositionOfFingerprint == 2)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 2 && item.FingerType == 2 && item.PositionOfFingerprint == 3)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div>}
+                            </div>}
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                                    <br><br>
+                                    <h3>MIDDLE</h3>
+                                </div>
+                                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        @foreach (var item in Model.listFingureprit)
+                                        {
+                                            string base64Image = Convert.ToBase64String(item.FingerprintImage);
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                @if (item.Hand == 1 && item.FingerType == 3 && item.PositionOfFingerprint == 1)
+                                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 1 && item.FingerType == 3 && item.PositionOfFingerprint == 2)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 1 && item.FingerType == 3 && item.PositionOfFingerprint == 3)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div>}
+                            </div>}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                                    <div class="row">
+                                        @foreach (var item in Model.listFingureprit)
+                                        {
+                                            string base64Image = Convert.ToBase64String(item.FingerprintImage);
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                @if (item.Hand == 2 && item.FingerType == 3 && item.PositionOfFingerprint == 1)
+                                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 2 && item.FingerType == 3 && item.PositionOfFingerprint == 2)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 2 && item.FingerType == 3 && item.PositionOfFingerprint == 3)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div>}
+                            </div>}
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                                    <br><br>
+                                    <h3>RING</h3>
+                                </div>
+                                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        @foreach (var item in Model.listFingureprit)
+                                        {
+                                            string base64Image = Convert.ToBase64String(item.FingerprintImage);
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                @if (item.Hand == 1 && item.FingerType == 4 && item.PositionOfFingerprint == 1)
+                                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 1 && item.FingerType == 4 && item.PositionOfFingerprint == 2)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 1 && item.FingerType == 4 && item.PositionOfFingerprint == 3)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div>}
+                            </div>}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                                    <div class="row">
+                                        @foreach (var item in Model.listFingureprit)
+                                        {
+                                            string base64Image = Convert.ToBase64String(item.FingerprintImage);
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                @if (item.Hand == 2 && item.FingerType == 4 && item.PositionOfFingerprint == 1)
+                                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 2 && item.FingerType == 4 && item.PositionOfFingerprint == 2)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 2 && item.FingerType == 4 && item.PositionOfFingerprint == 3)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div>}
+                            </div>}
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                                    <br><br>
+                                    <h3>LITTLE</h3>
+                                </div>
+                                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        @foreach (var item in Model.listFingureprit)
+                                        {
+                                            string base64Image = Convert.ToBase64String(item.FingerprintImage);
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                @if (item.Hand == 1 && item.FingerType == 5 && item.PositionOfFingerprint == 1)
+                                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 1 && item.FingerType == 5 && item.PositionOfFingerprint == 2)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 1 && item.FingerType == 5 && item.PositionOfFingerprint == 3)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div>}
+                            </div>}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 col-lg-5 col-sm-4 col-xs-4">
+                                    <div class="row">
+                                        @foreach (var item in Model.listFingureprit)
+                                        {
+                                            string base64Image = Convert.ToBase64String(item.FingerprintImage);
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                @if (item.Hand == 2 && item.FingerType == 5 && item.PositionOfFingerprint == 1)
+                                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 2 && item.FingerType == 5 && item.PositionOfFingerprint == 2)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div> }
+
+                else if (item.Hand == 2 && item.FingerType == 5 && item.PositionOfFingerprint == 3)
+                {
+                <div class="column">
+                    <img src="data:image/png;base64, @base64Image" style="width:100px;height: 100px;border: 2px solid black;" onclick="openModal(this.src, '@item.BiomatricLogId' , '@item.Hand' , '@item.FingerType')" class="hover-shadow cursor">
+                </div>}
+                            </div>}
+                                    </div>
+                                </div>
+                            </div>*@
+        </div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+
+    <div class="fields">
+        <div class="field">
+            <input type="hidden" id="biomatricLogId" name="biomatricLogId">
+            <input type="hidden" id="Hand" name="Hand">
+            <input type="hidden" id="FingerType" name="FingerType">
+            <label for="lrc">LRC</label>
+            <input type="text" id="lrc" placeholder="Enter LRC">
+
+        </div>
+        <div class="field">
+            <label for="rrc">RRC</label>
+            <input type="text" id="rrc" placeholder="Enter RRC">
+        </div>
+        <div class="field">
+            <label for="FingerType">Finger Type</label>
+            @Html.DropDownList("FingerTypeL1",
+                ViewBag.FingerTypeL1 as List<SelectListItem> ?? new List<SelectListItem>(),
+                "-- Select --",
+                new { @class = "form-control" })
+        </div>
+        <button type="button" onclick="editRecord()">Edit</button>
+    </div>
+</div>
+
+
+<script>
+ function openModal(src, biomatricLogId, hand, fingerType) {
+    var modal = document.getElementById("myModal");
+    var modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = src;
+
+    $.ajax({
+        url: '@Url.Action("GetFingerRecord", "ClientInformations")',
+        type: "GET",
+        dataType: "json", // 👈 Very important
+        data: { biomatricLogId: biomatricLogId, hand: hand, fingerType: fingerType },
+        success: function (data) {
+            console.log("Response:", data); // Check output in console
+
+            if (data && data.FingerTypeList) {
+                $("#biomatricLogId").val(data.BiomatricLogId);
+                $("#Hand").val(data.Hand);
+                $("#FingerType").val(data.FingerType);
+                $("#lrc").val(data.LRC);
+                $("#rrc").val(data.RRC);
+
+                var ddl = $("#FingerTypeL1");
+
+                // Clear dropdown and add default first option
+                ddl.empty().append($("<option>").val("").text("-- Select --"));
+
+                // Populate dropdown from server list
+                $.each(data.FingerTypeList, function (i, item) {
+                    ddl.append($("<option>").val(item.Value).text(item.Text));
+                });
+
+                // ✅ Set selected value; if null/empty, first option stays selected
+                ddl.val(data.SelectedFingerType || "");
+            } else {
+                console.warn("No FingerTypeList found in response:", data);
+            }
+        },
+        error: function (xhr, status, err) {
+            console.error("AJAX error:", err);
+            alert("Error while loading finger record.");
+        }
+    });
+}
+
+
+
+
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+<br />
+
+
+@Html.DisplayFor(model => model.Zipcode)
+
+
+@*<div class="row">
+    <div class="col-md-4">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ClientId }, new { @class = "btn btn-primary" })
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+    </div>
+    <div class="col-md-4">
+        @using (Html.BeginForm("LineCounting", "LineCounting", FormMethod.Get))
+        {
+            <div class="form-group">
+                <input type="submit" value=" Result" class="btn btn-primary" />
+            </div>}
+    </div>
+</div>*@
+
+
+
+

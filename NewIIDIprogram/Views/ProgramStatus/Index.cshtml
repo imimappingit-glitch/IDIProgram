@@ -1,0 +1,87 @@
+﻿@model IEnumerable<NewIIDIprogram.Models.ProgramStatu>
+
+@{
+    ViewBag.Title = "Index";
+    var role = Session["Role"]?.ToString();
+}
+
+<h2>Program Status</h2>
+
+@if (role == "Admin")
+{
+    <p>
+        @Html.ActionLink(
+            "Create",
+            "Create",
+            "ProgramStatus",
+            new
+            {
+                programId = ViewBag.ProgramId,
+                stepId = ViewBag.StepId,
+                clientId = ViewBag.ClientId
+            },
+            new { @class = "btn btn-primary" }
+        )
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Navigator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassDescription)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Navigator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassDescription)
+            </td>
+
+            <td class="action-icons">
+                @if (role == "Admin")
+                {
+                    @Html.ActionLink(" ", "Edit",
+                        new { id = item.ProgramStatusId },
+                        new { @class = "fa fa-edit edit", title = "Edit" })
+
+                    @Html.ActionLink(" ", "Details",
+                        new { id = item.ProgramStatusId },
+                        new { @class = "fa fa-eye view", title = "Details" })
+
+                    @Html.ActionLink(" ", "Delete",
+                        new { id = item.ProgramStatusId },
+                        new
+                        {
+                            @class = "fa fa-trash delete",
+                            title = "Delete",
+                            onclick = "return confirm('Are you sure?')"
+                        })
+                }
+            </td>
+
+        </tr>
+    }
+
+</table>

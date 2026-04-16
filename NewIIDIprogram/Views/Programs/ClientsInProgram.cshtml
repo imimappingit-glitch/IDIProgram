@@ -1,0 +1,121 @@
+﻿@model IEnumerable<NewIIDIprogram.Models.ClientInformation>
+
+@{
+    ViewBag.Title = "Clients in Program";
+}
+
+<h2>Clients in @ViewBag.ProgramName</h2>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <table class="table table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var client in Model)
+        {
+            <tr>
+                <td>@client.FristName @client.LastName</td>
+                <td>@client.MobileNo</td>
+                <td>
+                    @Html.ActionLink(
+                        " ",
+                        "DeleteClientFromProgram",
+                        "Programs",
+                        new { clientId = client.ClientId, programId = Request.QueryString["programId"] },
+                        new { @class = "fa fa-trash text-danger", title = "Remove from Program", onclick = "return confirm('Are you sure you want to remove this client from the program?');" }
+                    )
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p><i>No clients assigned to this program.</i></p>
+}
+
+<p>
+    <a href="@Url.Action("Index", "Programs")" class="btn btn-secondary">Back to Programs</a>
+</p>
+<style>
+    /* Page Title */
+    h2 {
+        text-align: center;
+        font-weight: 700;
+        margin: 30px 0;
+        color: #2c3e50;
+    }
+
+    /* Table Design */
+    .table {
+        width: 90%;
+        margin: 0 auto 30px auto;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+        /* Table Header */
+        .table th {
+            background-color: #f39c12;
+            color: #fff;
+            text-align: center;
+            padding: 12px;
+            font-weight: 600;
+        }
+
+        /* Table Rows */
+        .table td {
+            text-align: center;
+            padding: 12px;
+            vertical-align: middle;
+        }
+
+        /* Row Hover Effect */
+        .table tbody tr:hover {
+            background-color: #fdf2e9;
+            transition: 0.3s;
+        }
+
+    /* Remove default table border */
+    .table-bordered,
+    .table-bordered th,
+    .table-bordered td {
+        border: none !important;
+    }
+
+    /* Delete icon styling */
+    .fa-trash {
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+        .fa-trash:hover {
+            color: #c0392b !important;
+            transform: scale(1.2);
+        }
+
+    /* Empty message */
+    p i {
+        display: block;
+        text-align: center;
+        margin: 40px 0;
+        color: #7f8c8d;
+        font-size: 16px;
+    }
+
+    /* Back button center */
+    .btn-secondary {
+        display: block;
+        width: 200px;
+        margin: 20px auto;
+    }
+
+</style>

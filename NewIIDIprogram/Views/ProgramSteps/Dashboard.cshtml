@@ -1,0 +1,313 @@
+﻿@model List<NewIIDIprogram.Models.ProgramStep>
+
+@{
+    ViewBag.Title = "Dashboard";
+
+    // 🔒 IMPORTANT: keep order consistent for all programs
+
+    var steps = Model
+    .OrderBy(x => x.StepId)   // or StepOrder / SequenceNo
+    .ToList();
+
+
+
+    int totalSteps = steps.Count;
+
+    int centerX = 250;
+    int centerY = 250;
+    int radius = 180;
+
+    string[] colors = {
+        "#e74c3c", "#f39c12", "#f1c40f", "#2ecc71",
+        "#1abc9c", "#3498db", "#9b59b6", "#34495e",
+        "#16a085", "#27ae60", "#2980b9", "#8e44ad"
+    };
+
+    int maxLabelLength = 12;
+}
+
+@{
+    var programName = Model.FirstOrDefault()?.Program?.ProgramName;
+}
+<h2 style="text-align:center;">
+    @(programName ?? "")
+</h2>
+
+
+
+<div style="display:flex; justify-content:center; align-items:center; height:80vh;">
+    <svg width="500" height="500" viewBox="0 0 500 500">
+
+        @* ================= SINGLE STEP ================= *@
+        @if (totalSteps == 1)
+        {
+            var step = Model[0];
+            var label = step.MasterStep != null ? step.MasterStep.StepTitle : step.StepTitle;
+
+            if (label.Length > maxLabelLength)
+            {
+                label = label.Substring(0, maxLabelLength) + "...";
+            }
+
+            <!-- Outer circle -->
+            <circle cx="@centerX"
+                    cy="@centerY"
+                    r="@radius"
+                    fill="@colors[0]"
+                    stroke="#fff"
+                    stroke-width="2"
+                    style="cursor:pointer"
+                    onclick="location.href='@Url.Action("Index","Activities", new { stepId = step.StepId })'" />
+
+            <!-- Center circle -->
+            <circle cx="@centerX" cy="@centerY" r="45" fill="#ecf0f1" />
+
+            <!-- Step label -->
+            @Html.Raw($@"
+                <text x='{centerX}'
+                      y='{centerY - 65}'
+                      text-anchor='middle'
+                      fill='white'
+                      font-size='16'
+                      font-weight='bold'>
+                    {label}
+                </text>
+            ")
+        }
+        else
+        {
+            double anglePerStep = 360.0 / totalSteps;
+
+            @* ================= MULTIPLE STEPS ================= *@
+            for (int i = 0; i < totalSteps; i++)
+            {
+                double startAngle = i * anglePerStep;
+                double endAngle = (i + 1) * anglePerStep;
+
+                double x1 = centerX + radius * Math.Cos(Math.PI * startAngle / 180);
+                double y1 = centerY + radius * Math.Sin(Math.PI * startAngle / 180);
+
+                double x2 = centerX + radius * Math.Cos(Math.PI * endAngle / 180);
+                double y2 = centerY + radius * Math.Sin(Math.PI * endAngle / 180);
+
+                double midAngle = startAngle + anglePerStep / 2;
+                double textRadius = radius - 70;
+                double textX = centerX + textRadius * Math.Cos(Math.PI * midAngle / 180);
+                double textY = centerY + textRadius * Math.Sin(Math.PI * midAngle / 180);
+
+                double rotateAngle = midAngle;
+                if (rotateAngle > 90 && rotateAngle < 270)
+                {
+                    rotateAngle += 180;
+                }
+
+                var label = Model[i].MasterStep != null ? Model[i].MasterStep.StepTitle : Model[i].StepTitle;
+                if (label.Length > maxLabelLength)
+                {
+                    label = label.Substring(0, maxLabelLength) + "...";
+                }
+
+                <path d="
+                    M @centerX @centerY
+                    L @x1 @y1
+                    A @radius @radius 0 0 1 @x2 @y2
+                    Z"
+                      fill="@colors[i % colors.Length]"
+                      stroke="#fff"
+                      stroke-width="2"
+                      style="cursor:pointer"
+                      onclick="location.href='@Url.Action("Index","Activities", new { stepId = Model[i].StepId })'">
+                </path>
+
+                @Html.Raw($@"
+    <text x='{textX}'
+          y='{textY - 8}'
+          text-anchor='middle'
+          fill='white'
+          font-size='11'
+          font-weight='bold'
+          transform='rotate({rotateAngle} {textX} {textY})'>
+        STEP {i + 1}
+    </text>
+
+    <text x='{textX}'
+          y='{textY + 8}'
+          text-anchor='middle'
+          fill='white'
+          font-size='11'
+          transform='rotate({rotateAngle} {textX} {textY})'>
+        {label}
+    </text>
+")
+
+            }
+
+            <!-- Center circle -->
+            <circle cx="@centerX" cy="@centerY" r="45" fill="#ecf0f1" />
+        }
+
+        <!-- Center text -->
+        <text x="@centerX"
+              y="@centerY"
+              text-anchor="middle"
+              alignment-baseline="middle"
+              font-size="14"
+              font-weight="bold"
+              fill="#2c3e50">
+            STEPS
+        </text>
+
+    </svg>
+</div>
+<hr />
+<div class="client-section">
+
+    <h3>Clients in this Program</h3>
+
+    @if (ViewBag.Clients != null && ((List<NewIIDIprogram.Models.ClientInformation>)ViewBag.Clients).Any())
+    {
+        var clients = (List<NewIIDIprogram.Models.ClientInformation>)ViewBag.Clients;
+
+        <div class="client-list">
+            @foreach (var client in clients)
+            {
+                <span class="client-badge">
+                    @client.FristName @client.LastName
+                </span>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-muted text-center">No clients assigned</p>
+    }
+
+</div>
+
+
+<div class="section-header">
+    <span class="section-line"></span>
+    <h3 class="section-title"> Navigator</h3>
+    <span class="section-line"></span>
+</div>
+
+<div class="container">
+    <div class="row">
+
+        @foreach (var step in Model)
+        {
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="step-box">
+
+                    <!-- STEP TITLE -->
+                    <div class="step-header">
+                        @(step.MasterStep != null ? step.MasterStep.StepTitle : step.StepTitle)
+                    </div>
+
+                    <!-- ACTIVITIES -->
+                    <div class="step-body">
+                        @if (step.Activities != null && step.Activities.Any())
+                        {
+                            <ul>
+                                @foreach (var act in step.Activities)
+                                {
+                                    <li>@act.ActivityName</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No activities</span>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<style>
+    .step-box {
+        border: 2px solid #f39c12;
+        border-radius: 12px;
+        padding: 10px;
+        height: 100%;
+        background: #fff;
+    }
+
+    .step-header {
+        text-align: center;
+        font-weight: bold;
+        font-size: 15px;
+        color: #e67e22;
+        border-bottom: 1px solid #f39c12;
+        padding-bottom: 6px;
+        margin-bottom: 8px;
+    }
+
+    .step-body ul {
+        padding-left: 18px;
+        margin: 0;
+    }
+
+    .step-body li {
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 40px 0 25px;
+    }
+
+    .section-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #e67e22;
+        margin: 0 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .section-line {
+        width: 80px;
+        height: 2px;
+        background-color: #f39c12;
+    }
+</style>
+
+<style>
+    .client-section {
+        text-align: center;
+        margin: 40px auto;
+        width: 100%;
+    }
+
+        .client-section h3 {
+            font-weight: 700;
+            color: #e67e22;
+            margin-bottom: 20px;
+        }
+
+    .client-list {
+        display: flex;
+        justify-content: center; /* 🔥 This centers horizontally */
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .client-badge {
+        background-color: #f39c12;
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+</style>
+

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<NewIIDIprogram.Models.Activity>
+
+@{
+    ViewBag.Title = "Index";
+    var role = Session["Role"]?.ToString();
+}
+
+<h2>Activity</h2>
+
+@if (role == "Admin")
+{
+    <p>
+        @Html.ActionLink(
+         "Create Activity",
+         "Create",
+         "Activities",
+         new { stepId = ViewBag.CurrentStepId },
+         new { @class = "btn btn-primary" }
+        )
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProgramStep.StepTitle)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DoneBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityDate)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramStep.StepTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoneBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityDate)
+            </td>
+
+            <td>
+                @if (role == "Admin")
+                {
+                    @Html.ActionLink(" ", "Edit", new { id = item.ActivityId },
+                        new { @class = "fa fa-edit edit", title = "Edit" })
+
+                    @Html.ActionLink(" ", "Details", new { id = item.ActivityId },
+                        new { @class = "fa fa-eye view", title = "Details" })
+
+                    @Html.ActionLink(" ", "Delete", new { id = item.ActivityId },
+                        new
+                        {
+                            @class = "fa fa-trash delete",
+                            title = "Delete",
+                            onclick = "return confirm('Are you sure?')"
+                        })
+                }
+            </td>
+
+        </tr>
+    }
+
+</table>

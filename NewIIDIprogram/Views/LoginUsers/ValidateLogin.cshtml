@@ -1,0 +1,351 @@
+﻿@model NewIIDIprogram.Models.LoginUser
+@{
+    Layout = null;
+    ViewBag.Title = "ValidateLogin";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1e1e2f;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+            /* Animated background circles */
+            body::before,
+            body::after {
+                content: '';
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.1);
+                animation: float 6s ease-in-out infinite;
+            }
+
+            body::before {
+                width: 300px;
+                height: 300px;
+                top: -100px;
+                left: -100px;
+                animation-delay: 0s;
+            }
+
+            body::after {
+                width: 400px;
+                height: 400px;
+                bottom: -150px;
+                right: -150px;
+                animation-delay: 3s;
+            }
+
+        @@keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+        }
+
+        .otp-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+            padding: 20px;
+        }
+
+        .otp-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 38px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: slideUp 0.6s ease;
+        }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            margin-bottom: 30px;
+        }
+
+        .logo-circle {
+            width: 80px;
+            height: 80px;
+            background: #1e1e2f;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            box-shadow: #1e1e2f;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @@keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .logo-circle i {
+            color: white;
+            font-size: 32px;
+        }
+
+        .otp-card h2 {
+            margin-bottom: 10px;
+            color: #2d3748;
+            font-weight: 700;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #1e1e2f;
+            font-size: 14px;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                color: #4a5568;
+                font-weight: 500;
+                font-size: 14px;
+            }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+            font-size: 16px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            font-size: 18px;
+            letter-spacing: 4px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: #f7fafc;
+            font-weight: 600;
+        }
+
+            .form-control:focus {
+                border-color: #1e1e2f;
+                box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+                outline: none;
+                background: white;
+            }
+
+            .form-control::placeholder {
+                color: #cbd5e0;
+                letter-spacing: normal;
+                font-weight: normal;
+            }
+
+        .btn-primary {
+            width: 100%;
+            background: #1e1e2f;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            font-weight: 600;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: #1e1e2f;
+            margin-top: 10px;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: #1e1e2f;
+            }
+
+            .btn-primary:active {
+                transform: translateY(0);
+            }
+
+        .text-danger {
+            color: #f56565;
+            font-size: 14px;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            background: #fff5f5;
+            display: none;
+        }
+
+            .text-danger:not(:empty) {
+                display: block;
+            }
+
+        .footer-links {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #1e1e2f;
+        }
+
+        .back-link {
+            color: #1e1e2f;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .back-link:hover {
+                color: #1e1e2f;
+                gap: 12px;
+            }
+
+            .back-link i {
+                transition: transform 0.3s;
+            }
+
+            .back-link:hover i {
+                transform: translateX(-3px);
+            }
+
+        .info-box {
+            background: #fff7ed;
+            border-left: 4px solid #ff8c00;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+            .info-box p {
+                margin: 0;
+                color: #92400e;
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+            .info-box i {
+                color: #ff8c00;
+                margin-right: 8px;
+            }
+
+        /* Responsive design */
+        @@media (max-width: 480px) {
+            .otp-card {
+                padding: 40px 30px;
+            }
+
+                .otp-card h2 {
+                    font-size: 24px;
+                }
+        }
+    </style>
+</head>
+<body>
+    <div class="otp-container">
+        <div class="otp-card">
+            <div class="logo-container">
+                <div class="logo-circle">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h2>Verify OTP</h2>
+                <p class="subtitle">@*Enter the verification code sent to your email*@</p>
+            </div>
+
+            @*<div class="info-box">
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Check your email</strong> for the one-time password (OTP) and enter it below.
+                    </p>
+                </div>*@
+
+            @using (Html.BeginForm("ValidateLogin", "LoginUsers", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, "One-Time Password")
+            <div class="input-wrapper">
+                <i class="fas fa-shield-alt input-icon"></i>
+                @Html.TextBoxFor(m => m.Password, new
+                {
+                    @class = "form-control",
+                    placeholder = "Enter OTP",
+                    required = "required",
+                    maxlength = "6",
+                    pattern = "[0-9]*",
+                    inputmode = "numeric"
+                })
+            </div>
+        </div>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i>Verify & Login
+                </button>
+
+                <p class="text-danger">@ViewData["Message"]</p>
+
+                <div class="footer-links">
+                    <a href="@Url.Action("Login","LoginUsers")" class="back-link">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Login
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

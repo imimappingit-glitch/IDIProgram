@@ -1,0 +1,306 @@
+﻿@model NewIIDIprogram.Models.LoginUser
+
+@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1e1e2f;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+            /* Animated background circles */
+            body::before,
+            body::after {
+                content: '';
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.1);
+                animation: float 6s ease-in-out infinite;
+            }
+
+            body::before {
+                width: 300px;
+                height: 300px;
+                top: -100px;
+                left: -100px;
+                animation-delay: 0s;
+            }
+
+            body::after {
+                width: 400px;
+                height: 400px;
+                bottom: -150px;
+                right: -150px;
+                animation-delay: 3s;
+            }
+
+        @@keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 38px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: slideUp 0.6s ease;
+        }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            margin-bottom: 30px;
+        }
+
+        .logo-circle {
+            width: 80px;
+            height: 80px;
+            background: #1e1e2f;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            box-shadow: #1e1e2f;
+        }
+
+            .logo-circle i {
+                color: white;
+                font-size: 32px;
+            }
+
+        .login-card h2 {
+            margin-bottom: 10px;
+            color: #2d3748;
+            font-weight: 700;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                color: #4a5568;
+                font-weight: 500;
+                font-size: 14px;
+            }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+            font-size: 16px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            border-radius: 10px;
+            border: 2px solid #1e1e2f;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #f7fafc;
+        }
+
+            .form-control:focus {
+                border-color: #1e1e2f;
+                box-shadow: #1e1e2f;
+                outline: none;
+                background: white;
+            }
+
+            .form-control::placeholder {
+                color: #cbd5e0;
+            }
+
+        .btn-primary {
+            width: 100%;
+            background: #1e1e2f;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            font-weight: 600;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: #1e1e2f;
+            margin-top: 10px;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(255, 140, 0, 0.5);
+            }
+
+            .btn-primary:active {
+                transform: translateY(0);
+            }
+
+        .text-danger {
+            color: #f56565;
+            font-size: 14px;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            background: #fff5f5;
+            display: none;
+        }
+
+            .text-danger:not(:empty) {
+                display: block;
+            }
+
+        .footer-links {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+            .footer-links a {
+                color: #667eea;
+                text-decoration: none;
+                font-size: 14px;
+                transition: color 0.3s;
+            }
+
+                .footer-links a:hover {
+                    color: #764ba2;
+                    text-decoration: underline;
+                }
+
+        /* Responsive design */
+        @@media (max-width: 480px) {
+            .login-card {
+                padding: 40px 30px;
+            }
+
+                .login-card h2 {
+                    font-size: 24px;
+                }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-container">
+                <div class="logo-circle">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                @*<h2>Teacher Login</h2>*@
+                @*<p class="subtitle">Sign in to access your teacher portal</p>*@
+            </div>
+
+            @using (Html.BeginForm("Login", "LoginUsers", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email)
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        @Html.TextBoxFor(m => m.Email, new
+                        {
+                            @class = "form-control",
+                            placeholder = "Enter your email address",
+                            required = "required",
+                            type = "email"
+                        })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password)
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        @Html.PasswordFor(m => m.Password, new
+                        {
+                            @class = "form-control",
+                            placeholder = "Enter your password",
+                            required = "required"
+                        })
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-paper-plane" style="margin-right: 8px;"></i>Send OTP
+                </button>
+
+                <p class="text-danger">@ViewData["Message"]</p>
+
+                @*<div class="footer-links">
+                        <a href="#">Forgot password?</a>
+                    </div>*@
+            }
+        </div>
+    </div>
+</body>
+</html>
+
+
+

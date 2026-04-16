@@ -1,0 +1,114 @@
+﻿@model IEnumerable<NewIIDIprogram.Models.LoginUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Users</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleId)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleId)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>*@
+            <td class="action-buttons">
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserId },
+                    new { @class = "btn-action btn-edit", title = "Edit" })
+
+                @Html.ActionLink("Details", "Details", new { id = item.UserId },
+                    new { @class = "btn-action btn-view", title = "Details" })
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserId },
+                    new
+                        {
+                            @class = "btn-action btn-delete",
+                        title = "Delete",
+                        onclick = "return confirm('Are you sure?')"
+                    })
+            </td>
+
+        </tr>
+    }
+
+</table>
+<style>
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-action {
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        color: #fff;
+        transition: all 0.2s ease-in-out;
+        display: inline-block;
+    }
+
+    /* Edit – Blue (Steps) */
+    .btn-edit {
+        background-color: #00c6e8;
+    }
+
+        .btn-edit:hover {
+            background-color: #00a8c6;
+        }
+
+    /* Details – Green (Status) */
+    .btn-view {
+        background-color: #198754;
+    }
+
+        .btn-view:hover {
+            background-color: #157347;
+        }
+
+    /* Delete – Yellow (Dashboard) */
+    .btn-delete {
+        background-color: #ffc107;
+        color: #000;
+    }
+
+        .btn-delete:hover {
+            background-color: #e0a800;
+        }
+</style>

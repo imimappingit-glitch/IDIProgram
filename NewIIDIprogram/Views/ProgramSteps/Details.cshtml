@@ -1,0 +1,47 @@
+﻿@model NewIIDIprogram.Models.ProgramStep
+
+<div>
+    <h4>ProgramStep</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Program.ProgramName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Program.ProgramName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StepTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StepTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StepDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StepDescription)
+        </dd>
+
+
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.MasterStep.StepTitle)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MasterStep.StepTitle)
+            </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StepId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

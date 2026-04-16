@@ -1,0 +1,80 @@
+﻿@model IEnumerable<NewIIDIprogram.Models.ProgramStep>
+
+@{
+    ViewBag.Title = "Index";
+    var role = Session["Role"]?.ToString();
+}
+
+<h2>Program Steps  @ViewBag.ProgramName</h2>
+
+
+@if (role == "Admin")
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="width:20%">Program Name</th>
+            <th style="width:80%">Steps</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var programGroup in Model.GroupBy(x => x.Program.ProgramName))
+        {
+            <tr>
+                <!-- Program name shown ONCE -->
+                <td class="align-top fw-bold">
+                    @programGroup.Key
+                </td>
+
+                <!-- All steps inside SAME cell -->
+                <td>
+                    @foreach (var item in programGroup)
+                    {
+                        <div class="border rounded p-2 mb-2">
+                            <strong>@item.StepTitle</strong><br />
+                            <span class="text-muted">@item.StepDescription</span>
+
+                            <div class="mt-2">
+                                @Html.ActionLink(
+                                    "Activity",
+                                    "Index",
+                                    "Activities",
+                                    new { stepId = item.StepId },
+                                    new
+                                    {
+                                        style = "color:white;background:#28a745;padding:4px 8px;border-radius:4px;text-decoration:none;"
+                                    }
+                                )
+
+                                @if (role == "Admin")
+                                {
+                                    @Html.ActionLink(" ", "Edit", new { id = item.StepId },
+                                        new { @class = "fa fa-edit edit ms-2", title = "Edit" })
+
+                                    @Html.ActionLink(" ", "Details", new { id = item.StepId },
+                                        new { @class = "fa fa-eye view ms-2", title = "Details" })
+
+                                    @Html.ActionLink(" ", "Delete", new { id = item.StepId },
+                                        new
+                                        {
+                                            @class = "fa fa-trash delete ms-2",
+                                            title = "Delete",
+                                            onclick = "return confirm('Are you sure?')"
+                                        })
+                                }
+
+                            </div>
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

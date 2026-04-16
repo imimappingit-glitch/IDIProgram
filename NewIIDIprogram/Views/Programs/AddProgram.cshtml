@@ -1,0 +1,78 @@
+﻿@model NewIIDIprogram.Models.Program
+
+@{
+    ViewBag.Title = "Add Program";
+}
+
+<h3>Add Program</h3>
+
+@using (Html.BeginForm("AddProgram", "Programs", FormMethod.Post))
+{
+    <input type="hidden" name="clientId" value="@ViewBag.ClientId" />
+
+    <div class="form-group">
+        <label>Program Name</label>
+
+        @Html.DropDownList(
+            "ProgramId",
+            (SelectList)ViewBag.ProgramId,
+            "-- Select Program --",
+            new { @class = "form-control" }
+        )
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+}
+<style>
+    /* Page Title */
+    h3 {
+        text-align: center;
+        margin: 40px 0 25px;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+
+    /* Form Container */
+   
+    /* Label */
+    .form-group label {
+        font-weight: 600;
+        color: #34495e;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    /* Dropdown Styling */
+    .form-control {
+        height: 45px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        padding: 8px 12px;
+        transition: 0.3s;
+    }
+
+        .form-control:focus {
+            border-color: #f39c12;
+            box-shadow: 0 0 6px rgba(243, 156, 18, 0.3);
+        }
+
+    /* Save Button */
+    .btn-success {
+        width: 51%;
+        height: 45px;
+        border-radius: 8px;
+        font-weight: 600;
+        background-color: #f39c12;
+        border: none;
+        transition: 0.3s;
+        display: block; /* ADD THIS */
+        margin: 20px auto; /* ADD THIS */
+    }
+
+        .btn-success:hover {
+            background-color: #e67e22;
+            transform: translateY(-2px);
+        }
+
+
+</style>

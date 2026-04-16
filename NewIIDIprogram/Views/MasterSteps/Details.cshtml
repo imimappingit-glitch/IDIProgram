@@ -1,0 +1,26 @@
+﻿@model NewIIDIprogram.Models.MasterStep
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MasterStep</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StepTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StepTitle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MasterStepId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

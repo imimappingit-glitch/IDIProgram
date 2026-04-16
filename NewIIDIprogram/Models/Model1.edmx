@@ -1,0 +1,957 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="imiMappingDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ActivityId" />
+          </Key>
+          <Property Name="ActivityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StepId" Type="int" Nullable="false" />
+          <Property Name="ActivityName" Type="nvarchar" MaxLength="200" />
+          <Property Name="DoneBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="ActivityDate" Type="date" Nullable="false" />
+          <Property Name="PhotoPath" Type="nvarchar" MaxLength="500" />
+          <Property Name="VideoPath" Type="nvarchar" MaxLength="500" />
+          <Property Name="ActivityNotes" Type="nvarchar(max)" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="CompleteTime" Type="time" Precision="7" />
+          <Property Name="AuxiName" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="BiomatricFingerprintMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BiomatricLogId" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Hand" Type="int" />
+          <Property Name="FingerType" Type="int" />
+          <Property Name="PositionOfFingerprint" Type="int" />
+          <Property Name="FingerprintImage" Type="varbinary(max)" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="UpdatedTime" Type="datetime" />
+          <Property Name="DeletedTime" Type="datetime" />
+          <Property Name="FingerprintImagePath" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ClientInformation">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Biomatric" Type="nvarchar" MaxLength="255" />
+          <Property Name="ReferenceID" Type="nvarchar" MaxLength="255" />
+          <Property Name="FristName" Type="nvarchar" MaxLength="255" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ParentsName" Type="nvarchar" MaxLength="255" />
+          <Property Name="MotherName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Credits" Type="int" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="Gender" Type="int" />
+          <Property Name="Handedness" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ethnicity" Type="nvarchar" MaxLength="255" />
+          <Property Name="BloodGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="Referances" Type="nvarchar" MaxLength="255" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="255" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Zipcode" Type="int" />
+          <Property Name="EvalutionType" Type="int" />
+          <Property Name="Languages" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="ClientPhoto" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="UpdatedTime" Type="datetime" />
+          <Property Name="DeletedTime" Type="datetime" />
+          <Property Name="Capturedby" Type="int" />
+          <Property Name="Updatedby" Type="int" />
+          <Property Name="Deletedby" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+          <Property Name="ReferalCode" Type="nvarchar" MaxLength="255" />
+          <Property Name="RegisterdBy" Type="nvarchar" MaxLength="255" />
+          <Property Name="VerificationToken" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsEmailVerified" Type="nvarchar" MaxLength="50" />
+          <Property Name="AppoimentDate" Type="datetime" />
+          <Property Name="PinCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShowDetails" Type="bit" />
+          <Property Name="UserProfileID" Type="uniqueidentifier" />
+          <Property Name="Userid" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ClientProgramMapping">
+          <Key>
+            <PropertyRef Name="ClientProgramMappingId" />
+          </Key>
+          <Property Name="ClientProgramMappingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="ProgramId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GetInTouch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginUsers">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="120" />
+          <Property Name="Password" Type="varchar" MaxLength="120" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="Mobile" Type="varchar" MaxLength="15" />
+          <Property Name="RoleId" Type="int" />
+        </EntityType>
+        <EntityType Name="MasterRoles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MasterSteps">
+          <Key>
+            <PropertyRef Name="MasterStepId" />
+          </Key>
+          <Property Name="MasterStepId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StepTitle" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NavigatorItems">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemTitle" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ItemDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgramFeatures">
+          <Key>
+            <PropertyRef Name="FeatureId" />
+          </Key>
+          <Property Name="FeatureId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeatureTitle" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="FeatureDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Programs">
+          <Key>
+            <PropertyRef Name="ProgramId" />
+          </Key>
+          <Property Name="ProgramId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProgramName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="IsReportUploaded" Type="bit" />
+          <Property Name="ReportFilePath" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsReportUpdated" Type="bit" />
+          <Property Name="PrimaryPercent" Type="float" />
+          <Property Name="SecondaryPercent" Type="float" />
+          <Property Name="TertiaryPercent" Type="float" />
+          <Property Name="LeftBrain" Type="float" />
+          <Property Name="RightBrain" Type="float" />
+          <Property Name="LoopPercent" Type="float" />
+          <Property Name="ArchPercent" Type="float" />
+          <Property Name="IntrapersonalPercent" Type="float" />
+          <Property Name="LogicPercent" Type="float" />
+          <Property Name="FineMotorPercent" Type="float" />
+          <Property Name="SpeechPercent" Type="float" />
+          <Property Name="ObservationPercent" Type="float" />
+          <Property Name="InterpersonalPercent" Type="float" />
+          <Property Name="ImaginationPercent" Type="float" />
+          <Property Name="GrossMotorPercent" Type="float" />
+          <Property Name="EmotionPercent" Type="float" />
+          <Property Name="BeautyPercent" Type="float" />
+          <Property Name="ReportRawText" Type="nvarchar(max)" />
+          <Property Name="WhorlPercent" Type="float" />
+          <Property Name="AxPercent" Type="float" />
+        </EntityType>
+        <EntityType Name="ProgramStatus">
+          <Key>
+            <PropertyRef Name="ProgramStatusId" />
+          </Key>
+          <Property Name="ProgramStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassDate" Type="date" Nullable="false" />
+          <Property Name="ClassTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Navigator" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClassDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ProgramId" Type="int" Nullable="false" />
+          <Property Name="StepId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgramStepProgress">
+          <Key>
+            <PropertyRef Name="ProgressId" />
+          </Key>
+          <Property Name="ProgressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProgramId" Type="int" Nullable="false" />
+          <Property Name="StepNo" Type="int" Nullable="false" />
+          <Property Name="StepTitle" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgramSteps">
+          <Key>
+            <PropertyRef Name="StepId" />
+          </Key>
+          <Property Name="StepId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StepTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StepDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="ProgramId" Type="int" />
+          <Property Name="MasterStepId" Type="int" />
+          <Property Name="IsAIGenerated" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Activity_ProgramSteps">
+          <End Role="ProgramSteps" Type="Self.ProgramSteps" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgramSteps">
+              <PropertyRef Name="StepId" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="StepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginUsers_MasterRoles">
+          <End Role="MasterRoles" Type="Self.MasterRoles" Multiplicity="0..1" />
+          <End Role="LoginUsers" Type="Self.LoginUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterRoles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="LoginUsers">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programs_LoginUsers">
+          <End Role="LoginUsers" Type="Self.LoginUsers" Multiplicity="0..1" />
+          <End Role="Programs" Type="Self.Programs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoginUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Programs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramStatus_Program">
+          <End Role="Programs" Type="Self.Programs" Multiplicity="1" />
+          <End Role="ProgramStatus" Type="Self.ProgramStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programs">
+              <PropertyRef Name="ProgramId" />
+            </Principal>
+            <Dependent Role="ProgramStatus">
+              <PropertyRef Name="ProgramId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramStatus_Step">
+          <End Role="ProgramSteps" Type="Self.ProgramSteps" Multiplicity="1" />
+          <End Role="ProgramStatus" Type="Self.ProgramStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgramSteps">
+              <PropertyRef Name="StepId" />
+            </Principal>
+            <Dependent Role="ProgramStatus">
+              <PropertyRef Name="StepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramSteps_MasterSteps">
+          <End Role="MasterSteps" Type="Self.MasterSteps" Multiplicity="0..1" />
+          <End Role="ProgramSteps" Type="Self.ProgramSteps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterSteps">
+              <PropertyRef Name="MasterStepId" />
+            </Principal>
+            <Dependent Role="ProgramSteps">
+              <PropertyRef Name="MasterStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramSteps_Programs">
+          <End Role="Programs" Type="Self.Programs" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProgramSteps" Type="Self.ProgramSteps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programs">
+              <PropertyRef Name="ProgramId" />
+            </Principal>
+            <Dependent Role="ProgramSteps">
+              <PropertyRef Name="ProgramId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="imiMappingDbModelStoreContainer">
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BiomatricFingerprintMapping" EntityType="Self.BiomatricFingerprintMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientInformation" EntityType="Self.ClientInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientProgramMapping" EntityType="Self.ClientProgramMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GetInTouch" EntityType="Self.GetInTouch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginUsers" EntityType="Self.LoginUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterRoles" EntityType="Self.MasterRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterSteps" EntityType="Self.MasterSteps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NavigatorItems" EntityType="Self.NavigatorItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProgramFeatures" EntityType="Self.ProgramFeatures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Programs" EntityType="Self.Programs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProgramStatus" EntityType="Self.ProgramStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProgramStepProgress" EntityType="Self.ProgramStepProgress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProgramSteps" EntityType="Self.ProgramSteps" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Activity_ProgramSteps" Association="Self.FK_Activity_ProgramSteps">
+            <End Role="ProgramSteps" EntitySet="ProgramSteps" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginUsers_MasterRoles" Association="Self.FK_LoginUsers_MasterRoles">
+            <End Role="MasterRoles" EntitySet="MasterRoles" />
+            <End Role="LoginUsers" EntitySet="LoginUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programs_LoginUsers" Association="Self.FK_Programs_LoginUsers">
+            <End Role="LoginUsers" EntitySet="LoginUsers" />
+            <End Role="Programs" EntitySet="Programs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramStatus_Program" Association="Self.FK_ProgramStatus_Program">
+            <End Role="Programs" EntitySet="Programs" />
+            <End Role="ProgramStatus" EntitySet="ProgramStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramStatus_Step" Association="Self.FK_ProgramStatus_Step">
+            <End Role="ProgramSteps" EntitySet="ProgramSteps" />
+            <End Role="ProgramStatus" EntitySet="ProgramStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramSteps_MasterSteps" Association="Self.FK_ProgramSteps_MasterSteps">
+            <End Role="MasterSteps" EntitySet="MasterSteps" />
+            <End Role="ProgramSteps" EntitySet="ProgramSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramSteps_Programs" Association="Self.FK_ProgramSteps_Programs">
+            <End Role="Programs" EntitySet="Programs" />
+            <End Role="ProgramSteps" EntitySet="ProgramSteps" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="imiMappingDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ActivityId" />
+          </Key>
+          <Property Name="ActivityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StepId" Type="Int32" Nullable="false" />
+          <Property Name="ActivityName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DoneBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ProgramStep" Relationship="imiMappingDbModel.FK_Activity_ProgramSteps" FromRole="Activity" ToRole="ProgramStep" />
+          <Property Name="PhotoPath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="VideoPath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="CompleteTime" Type="Time" Precision="7" />
+          <Property Name="AuxiName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="imiMappingDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activities" EntityType="Self.Activity" />
+          <EntitySet Name="GetInTouches" EntityType="imiMappingDbModel.GetInTouch" />
+          <EntitySet Name="LoginUsers" EntityType="imiMappingDbModel.LoginUser" />
+          <EntitySet Name="MasterSteps" EntityType="imiMappingDbModel.MasterStep" />
+          <EntitySet Name="NavigatorItems" EntityType="imiMappingDbModel.NavigatorItem" />
+          <EntitySet Name="ProgramFeatures" EntityType="imiMappingDbModel.ProgramFeature" />
+          <EntitySet Name="Programs" EntityType="imiMappingDbModel.Program" />
+          <EntitySet Name="ProgramStatus" EntityType="imiMappingDbModel.ProgramStatu" />
+          <EntitySet Name="ProgramStepProgresses" EntityType="imiMappingDbModel.ProgramStepProgress" />
+          <EntitySet Name="ProgramSteps" EntityType="imiMappingDbModel.ProgramStep" />
+          <AssociationSet Name="FK_Activity_ProgramSteps" Association="imiMappingDbModel.FK_Activity_ProgramSteps">
+            <End Role="ProgramStep" EntitySet="ProgramSteps" />
+            <End Role="Activity" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programs_LoginUsers" Association="imiMappingDbModel.FK_Programs_LoginUsers">
+            <End Role="LoginUser" EntitySet="LoginUsers" />
+            <End Role="Program" EntitySet="Programs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramSteps_MasterSteps" Association="imiMappingDbModel.FK_ProgramSteps_MasterSteps">
+            <End Role="MasterStep" EntitySet="MasterSteps" />
+            <End Role="ProgramStep" EntitySet="ProgramSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramStatus_Program" Association="imiMappingDbModel.FK_ProgramStatus_Program">
+            <End Role="Program" EntitySet="Programs" />
+            <End Role="ProgramStatu" EntitySet="ProgramStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramSteps_Programs" Association="imiMappingDbModel.FK_ProgramSteps_Programs">
+            <End Role="Program" EntitySet="Programs" />
+            <End Role="ProgramStep" EntitySet="ProgramSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramStatus_Step" Association="imiMappingDbModel.FK_ProgramStatus_Step">
+            <End Role="ProgramStep" EntitySet="ProgramSteps" />
+            <End Role="ProgramStatu" EntitySet="ProgramStatus" />
+          </AssociationSet>
+          <EntitySet Name="ClientInformations" EntityType="imiMappingDbModel.ClientInformation" />
+          <EntitySet Name="BiomatricFingerprintMappings" EntityType="imiMappingDbModel.BiomatricFingerprintMapping" />
+          <EntitySet Name="ClientProgramMappings" EntityType="imiMappingDbModel.ClientProgramMapping" />
+          <EntitySet Name="MasterRoles" EntityType="imiMappingDbModel.MasterRole" />
+          <AssociationSet Name="FK_LoginUsers_MasterRoles" Association="imiMappingDbModel.FK_LoginUsers_MasterRoles">
+            <End Role="MasterRole" EntitySet="MasterRoles" />
+            <End Role="LoginUser" EntitySet="LoginUsers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="GetInTouch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Programs" Relationship="imiMappingDbModel.FK_Programs_LoginUsers" FromRole="LoginUser" ToRole="Program" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="MasterRole" Relationship="imiMappingDbModel.FK_LoginUsers_MasterRoles" FromRole="LoginUser" ToRole="MasterRole" />
+        </EntityType>
+        <EntityType Name="MasterStep">
+          <Key>
+            <PropertyRef Name="MasterStepId" />
+          </Key>
+          <Property Name="MasterStepId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StepTitle" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProgramSteps" Relationship="imiMappingDbModel.FK_ProgramSteps_MasterSteps" FromRole="MasterStep" ToRole="ProgramStep" />
+        </EntityType>
+        <EntityType Name="NavigatorItem">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemTitle" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ItemDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgramFeature">
+          <Key>
+            <PropertyRef Name="FeatureId" />
+          </Key>
+          <Property Name="FeatureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeatureTitle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FeatureDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="ProgramId" />
+          </Key>
+          <Property Name="ProgramId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="LoginUser" Relationship="imiMappingDbModel.FK_Programs_LoginUsers" FromRole="Program" ToRole="LoginUser" />
+          <NavigationProperty Name="ProgramStatus" Relationship="imiMappingDbModel.FK_ProgramStatus_Program" FromRole="Program" ToRole="ProgramStatu" />
+          <NavigationProperty Name="ProgramSteps" Relationship="imiMappingDbModel.FK_ProgramSteps_Programs" FromRole="Program" ToRole="ProgramStep" />
+          <Property Name="IsReportUploaded" Type="Boolean" />
+          <Property Name="ReportFilePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsReportUpdated" Type="Boolean" />
+          <Property Name="PrimaryPercent" Type="Double" />
+          <Property Name="SecondaryPercent" Type="Double" />
+          <Property Name="TertiaryPercent" Type="Double" />
+          <Property Name="LeftBrain" Type="Double" />
+          <Property Name="RightBrain" Type="Double" />
+          <Property Name="LoopPercent" Type="Double" />
+          <Property Name="ArchPercent" Type="Double" />
+          <Property Name="IntrapersonalPercent" Type="Double" />
+          <Property Name="LogicPercent" Type="Double" />
+          <Property Name="FineMotorPercent" Type="Double" />
+          <Property Name="SpeechPercent" Type="Double" />
+          <Property Name="ObservationPercent" Type="Double" />
+          <Property Name="InterpersonalPercent" Type="Double" />
+          <Property Name="ImaginationPercent" Type="Double" />
+          <Property Name="GrossMotorPercent" Type="Double" />
+          <Property Name="EmotionPercent" Type="Double" />
+          <Property Name="BeautyPercent" Type="Double" />
+          <Property Name="ReportRawText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WhorlPercent" Type="Double" />
+          <Property Name="AxPercent" Type="Double" />
+        </EntityType>
+        <EntityType Name="ProgramStatu">
+          <Key>
+            <PropertyRef Name="ProgramStatusId" />
+          </Key>
+          <Property Name="ProgramStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ClassTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Navigator" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ClassDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ProgramId" Type="Int32" Nullable="false" />
+          <Property Name="StepId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Program" Relationship="imiMappingDbModel.FK_ProgramStatus_Program" FromRole="ProgramStatu" ToRole="Program" />
+          <NavigationProperty Name="ProgramStep" Relationship="imiMappingDbModel.FK_ProgramStatus_Step" FromRole="ProgramStatu" ToRole="ProgramStep" />
+        </EntityType>
+        <EntityType Name="ProgramStepProgress">
+          <Key>
+            <PropertyRef Name="ProgressId" />
+          </Key>
+          <Property Name="ProgressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramId" Type="Int32" Nullable="false" />
+          <Property Name="StepNo" Type="Int32" Nullable="false" />
+          <Property Name="StepTitle" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProgramStep">
+          <Key>
+            <PropertyRef Name="StepId" />
+          </Key>
+          <Property Name="StepId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StepTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StepDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProgramId" Type="Int32" />
+          <Property Name="MasterStepId" Type="Int32" />
+          <NavigationProperty Name="Activities" Relationship="imiMappingDbModel.FK_Activity_ProgramSteps" FromRole="ProgramStep" ToRole="Activity" />
+          <NavigationProperty Name="MasterStep" Relationship="imiMappingDbModel.FK_ProgramSteps_MasterSteps" FromRole="ProgramStep" ToRole="MasterStep" />
+          <NavigationProperty Name="Program" Relationship="imiMappingDbModel.FK_ProgramSteps_Programs" FromRole="ProgramStep" ToRole="Program" />
+          <NavigationProperty Name="ProgramStatus" Relationship="imiMappingDbModel.FK_ProgramStatus_Step" FromRole="ProgramStep" ToRole="ProgramStatu" />
+          <Property Name="IsAIGenerated" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_Activity_ProgramSteps">
+          <End Type="imiMappingDbModel.ProgramStep" Role="ProgramStep" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="imiMappingDbModel.Activity" Role="Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgramStep">
+              <PropertyRef Name="StepId" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="StepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programs_LoginUsers">
+          <End Type="imiMappingDbModel.LoginUser" Role="LoginUser" Multiplicity="0..1" />
+          <End Type="imiMappingDbModel.Program" Role="Program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoginUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Program">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramSteps_MasterSteps">
+          <End Type="imiMappingDbModel.MasterStep" Role="MasterStep" Multiplicity="0..1" />
+          <End Type="imiMappingDbModel.ProgramStep" Role="ProgramStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterStep">
+              <PropertyRef Name="MasterStepId" />
+            </Principal>
+            <Dependent Role="ProgramStep">
+              <PropertyRef Name="MasterStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramStatus_Program">
+          <End Type="imiMappingDbModel.Program" Role="Program" Multiplicity="1" />
+          <End Type="imiMappingDbModel.ProgramStatu" Role="ProgramStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ProgramId" />
+            </Principal>
+            <Dependent Role="ProgramStatu">
+              <PropertyRef Name="ProgramId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramSteps_Programs">
+          <End Type="imiMappingDbModel.Program" Role="Program" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="imiMappingDbModel.ProgramStep" Role="ProgramStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ProgramId" />
+            </Principal>
+            <Dependent Role="ProgramStep">
+              <PropertyRef Name="ProgramId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramStatus_Step">
+          <End Type="imiMappingDbModel.ProgramStep" Role="ProgramStep" Multiplicity="1" />
+          <End Type="imiMappingDbModel.ProgramStatu" Role="ProgramStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgramStep">
+              <PropertyRef Name="StepId" />
+            </Principal>
+            <Dependent Role="ProgramStatu">
+              <PropertyRef Name="StepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ClientInformation">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Biomatric" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FristName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ParentsName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MotherName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Credits" Type="Int32" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Handedness" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ethnicity" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Referances" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zipcode" Type="Int32" />
+          <Property Name="EvalutionType" Type="Int32" />
+          <Property Name="Languages" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="ClientPhoto" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedTime" Type="DateTime" Precision="3" />
+          <Property Name="DeletedTime" Type="DateTime" Precision="3" />
+          <Property Name="Capturedby" Type="Int32" />
+          <Property Name="Updatedby" Type="Int32" />
+          <Property Name="Deletedby" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ReferalCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RegisterdBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VerificationToken" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsEmailVerified" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AppoimentDate" Type="DateTime" Precision="3" />
+          <Property Name="PinCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShowDetails" Type="Boolean" />
+          <Property Name="UserProfileID" Type="Guid" />
+          <Property Name="Userid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BiomatricFingerprintMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BiomatricLogId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Hand" Type="Int32" />
+          <Property Name="FingerType" Type="Int32" />
+          <Property Name="PositionOfFingerprint" Type="Int32" />
+          <Property Name="FingerprintImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedTime" Type="DateTime" Precision="3" />
+          <Property Name="DeletedTime" Type="DateTime" Precision="3" />
+          <Property Name="FingerprintImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ClientProgramMapping">
+          <Key>
+            <PropertyRef Name="ClientProgramMappingId" />
+          </Key>
+          <Property Name="ClientProgramMappingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="ProgramId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MasterRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LoginUsers" Relationship="imiMappingDbModel.FK_LoginUsers_MasterRoles" FromRole="MasterRole" ToRole="LoginUser" />
+        </EntityType>
+        <Association Name="FK_LoginUsers_MasterRoles">
+          <End Type="imiMappingDbModel.MasterRole" Role="MasterRole" Multiplicity="0..1" />
+          <End Type="imiMappingDbModel.LoginUser" Role="LoginUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterRole">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="LoginUser">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="imiMappingDbModelStoreContainer" CdmEntityContainer="imiMappingDbEntities">
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="imiMappingDbModel.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="AuxiName" ColumnName="AuxiName" />
+                <ScalarProperty Name="CompleteTime" ColumnName="CompleteTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="ActivityNotes" ColumnName="ActivityNotes" />
+                <ScalarProperty Name="VideoPath" ColumnName="VideoPath" />
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+                <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+                <ScalarProperty Name="StepId" ColumnName="StepId" />
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+                <ScalarProperty Name="DoneBy" ColumnName="DoneBy" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GetInTouches">
+            <EntityTypeMapping TypeName="imiMappingDbModel.GetInTouch">
+              <MappingFragment StoreEntitySet="GetInTouch">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginUsers">
+            <EntityTypeMapping TypeName="imiMappingDbModel.LoginUser">
+              <MappingFragment StoreEntitySet="LoginUsers">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterSteps">
+            <EntityTypeMapping TypeName="imiMappingDbModel.MasterStep">
+              <MappingFragment StoreEntitySet="MasterSteps">
+                <ScalarProperty Name="StepTitle" ColumnName="StepTitle" />
+                <ScalarProperty Name="MasterStepId" ColumnName="MasterStepId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NavigatorItems">
+            <EntityTypeMapping TypeName="imiMappingDbModel.NavigatorItem">
+              <MappingFragment StoreEntitySet="NavigatorItems">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+                <ScalarProperty Name="ItemTitle" ColumnName="ItemTitle" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgramFeatures">
+            <EntityTypeMapping TypeName="imiMappingDbModel.ProgramFeature">
+              <MappingFragment StoreEntitySet="ProgramFeatures">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FeatureDescription" ColumnName="FeatureDescription" />
+                <ScalarProperty Name="FeatureTitle" ColumnName="FeatureTitle" />
+                <ScalarProperty Name="FeatureId" ColumnName="FeatureId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programs">
+            <EntityTypeMapping TypeName="imiMappingDbModel.Program">
+              <MappingFragment StoreEntitySet="Programs">
+                <ScalarProperty Name="AxPercent" ColumnName="AxPercent" />
+                <ScalarProperty Name="WhorlPercent" ColumnName="WhorlPercent" />
+                <ScalarProperty Name="ReportRawText" ColumnName="ReportRawText" />
+                <ScalarProperty Name="BeautyPercent" ColumnName="BeautyPercent" />
+                <ScalarProperty Name="EmotionPercent" ColumnName="EmotionPercent" />
+                <ScalarProperty Name="GrossMotorPercent" ColumnName="GrossMotorPercent" />
+                <ScalarProperty Name="ImaginationPercent" ColumnName="ImaginationPercent" />
+                <ScalarProperty Name="InterpersonalPercent" ColumnName="InterpersonalPercent" />
+                <ScalarProperty Name="ObservationPercent" ColumnName="ObservationPercent" />
+                <ScalarProperty Name="SpeechPercent" ColumnName="SpeechPercent" />
+                <ScalarProperty Name="FineMotorPercent" ColumnName="FineMotorPercent" />
+                <ScalarProperty Name="LogicPercent" ColumnName="LogicPercent" />
+                <ScalarProperty Name="IntrapersonalPercent" ColumnName="IntrapersonalPercent" />
+                <ScalarProperty Name="ArchPercent" ColumnName="ArchPercent" />
+                <ScalarProperty Name="LoopPercent" ColumnName="LoopPercent" />
+                <ScalarProperty Name="RightBrain" ColumnName="RightBrain" />
+                <ScalarProperty Name="LeftBrain" ColumnName="LeftBrain" />
+                <ScalarProperty Name="TertiaryPercent" ColumnName="TertiaryPercent" />
+                <ScalarProperty Name="SecondaryPercent" ColumnName="SecondaryPercent" />
+                <ScalarProperty Name="PrimaryPercent" ColumnName="PrimaryPercent" />
+                <ScalarProperty Name="IsReportUpdated" ColumnName="IsReportUpdated" />
+                <ScalarProperty Name="ReportFilePath" ColumnName="ReportFilePath" />
+                <ScalarProperty Name="IsReportUploaded" ColumnName="IsReportUploaded" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
+                <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgramStatus">
+            <EntityTypeMapping TypeName="imiMappingDbModel.ProgramStatu">
+              <MappingFragment StoreEntitySet="ProgramStatus">
+                <ScalarProperty Name="StepId" ColumnName="StepId" />
+                <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="ClassDescription" ColumnName="ClassDescription" />
+                <ScalarProperty Name="Navigator" ColumnName="Navigator" />
+                <ScalarProperty Name="ClassTime" ColumnName="ClassTime" />
+                <ScalarProperty Name="ClassDate" ColumnName="ClassDate" />
+                <ScalarProperty Name="ProgramStatusId" ColumnName="ProgramStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgramStepProgresses">
+            <EntityTypeMapping TypeName="imiMappingDbModel.ProgramStepProgress">
+              <MappingFragment StoreEntitySet="ProgramStepProgress">
+                <ScalarProperty Name="StepTitle" ColumnName="StepTitle" />
+                <ScalarProperty Name="StepNo" ColumnName="StepNo" />
+                <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+                <ScalarProperty Name="ProgressId" ColumnName="ProgressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgramSteps">
+            <EntityTypeMapping TypeName="imiMappingDbModel.ProgramStep">
+              <MappingFragment StoreEntitySet="ProgramSteps">
+                <ScalarProperty Name="IsAIGenerated" ColumnName="IsAIGenerated" />
+                <ScalarProperty Name="MasterStepId" ColumnName="MasterStepId" />
+                <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+                <ScalarProperty Name="StepDescription" ColumnName="StepDescription" />
+                <ScalarProperty Name="StepTitle" ColumnName="StepTitle" />
+                <ScalarProperty Name="StepId" ColumnName="StepId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientInformations">
+            <EntityTypeMapping TypeName="imiMappingDbModel.ClientInformation">
+              <MappingFragment StoreEntitySet="ClientInformation">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="UserProfileID" ColumnName="UserProfileID" />
+                <ScalarProperty Name="ShowDetails" ColumnName="ShowDetails" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="AppoimentDate" ColumnName="AppoimentDate" />
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="VerificationToken" ColumnName="VerificationToken" />
+                <ScalarProperty Name="RegisterdBy" ColumnName="RegisterdBy" />
+                <ScalarProperty Name="ReferalCode" ColumnName="ReferalCode" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Deletedby" ColumnName="Deletedby" />
+                <ScalarProperty Name="Updatedby" ColumnName="Updatedby" />
+                <ScalarProperty Name="Capturedby" ColumnName="Capturedby" />
+                <ScalarProperty Name="DeletedTime" ColumnName="DeletedTime" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="ClientPhoto" ColumnName="ClientPhoto" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Languages" ColumnName="Languages" />
+                <ScalarProperty Name="EvalutionType" ColumnName="EvalutionType" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Referances" ColumnName="Referances" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />
+                <ScalarProperty Name="Handedness" ColumnName="Handedness" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Credits" ColumnName="Credits" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="ParentsName" ColumnName="ParentsName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FristName" ColumnName="FristName" />
+                <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+                <ScalarProperty Name="Biomatric" ColumnName="Biomatric" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BiomatricFingerprintMappings">
+            <EntityTypeMapping TypeName="imiMappingDbModel.BiomatricFingerprintMapping">
+              <MappingFragment StoreEntitySet="BiomatricFingerprintMapping">
+                <ScalarProperty Name="FingerprintImagePath" ColumnName="FingerprintImagePath" />
+                <ScalarProperty Name="DeletedTime" ColumnName="DeletedTime" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="FingerprintImage" ColumnName="FingerprintImage" />
+                <ScalarProperty Name="PositionOfFingerprint" ColumnName="PositionOfFingerprint" />
+                <ScalarProperty Name="FingerType" ColumnName="FingerType" />
+                <ScalarProperty Name="Hand" ColumnName="Hand" />
+                <ScalarProperty Name="BiomatricLogId" ColumnName="BiomatricLogId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientProgramMappings">
+            <EntityTypeMapping TypeName="imiMappingDbModel.ClientProgramMapping">
+              <MappingFragment StoreEntitySet="ClientProgramMapping">
+                <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ClientProgramMappingId" ColumnName="ClientProgramMappingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterRoles">
+            <EntityTypeMapping TypeName="imiMappingDbModel.MasterRole">
+              <MappingFragment StoreEntitySet="MasterRoles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
